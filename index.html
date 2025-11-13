@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUN Research Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles-container">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+    </div>
+    
+    <div id="app"></div>
+    
+    <!-- Notes Floating Button -->
+    <button id="notes-fab" class="fab" title="Notes">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+    </button>
+    
+    <!-- Notes Panel -->
+    <div id="notes-panel" class="notes-panel">
+        <div class="notes-header">
+            <h3>Notes</h3>
+            <button id="close-notes" class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <button id="add-note-btn" class="btn btn-primary full-width">+ New Note</button>
+        <div id="notes-list" class="notes-list"></div>
+    </div>
+    
+    <!-- Notes Panel Overlay -->
+    <div id="notes-overlay" class="notes-overlay"></div>
+    
+    <!-- Privacy Overlay -->
+    <div id="privacy-overlay" class="privacy-overlay">
+        <div class="privacy-box">
+            <div class="lock-icon">🔒</div>
+            <h2>Privacy Mode Active</h2>
+            <input type="password" id="privacy-password" placeholder="Enter password to unlock" class="form-input">
+            <button id="unlock-btn" class="btn btn-primary">Unlock</button>
+            <p id="privacy-error" class="error-text"></p>
+        </div>
+    </div>
+    
+    <!-- Account Settings Modal -->
+    <div id="api-key-modal" class="modal">
+        <div class="modal-content">
+            <!-- Content dynamically generated -->
+        </div>
+    </div>
+    
+    <!-- Privacy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content privacy-content">
+            <div class="modal-header">
+                <h2>Privacy Locker</h2>
+                <button id="close-privacy" class="btn-close">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <h3>Session Privacy</h3>
+                    <p>Keep your session data private and secure</p>
+                    
+                    <div class="privacy-toggle">
+                        <div class="toggle-item">
+                            <div class="toggle-label">
+                                <span class="toggle-name">Lock Session</span>
+                                <span class="toggle-desc">Requires password to view data</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="privacy-toggle" class="toggle-input">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="privacy-password-form" class="privacy-password-form" style="display: none;">
+                        <div class="form-group">
+                            <label>Set Privacy Password</label>
+                            <input type="password" id="privacy-password-input" class="form-input" placeholder="Create a password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="privacy-password-confirm" class="form-input" placeholder="Confirm password">
+                        </div>
+                        <button id="save-privacy-password" class="btn btn-primary">Save Privacy Password</button>
+                    </div>
+                    
+                    <div id="privacy-password-display" style="display: none;">
+                        <div class="privacy-status">
+                            <div class="status-icon">🔒</div>
+                            <div class="status-text">
+                                <h4>Session is Locked</h4>
+                                <p>Your session data is protected with a password</p>
+                            </div>
+                        </div>
+                        <button id="disable-privacy" class="btn btn-secondary" style="width: 100%; margin-top: 12px;">Disable Privacy Lock</button>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h3>Privacy Settings</h3>
+                    <div class="setting-item">
+                        <span>Auto-lock after 10 minutes of inactivity</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="auto-lock-toggle" class="toggle-input" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Blur sensitive data on screen</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="blur-data-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button id="confirm-yes" class="btn btn-error">Delete</button>
+                <button id="confirm-no" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script src="app.js"></script>
+</body>
+</html>
